@@ -1,0 +1,16 @@
+services:
+  frontend:
+    build:
+      context: ./bibliotheque-front
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./bibliotheque   # <-- anciennement ./bibliotheque-api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
