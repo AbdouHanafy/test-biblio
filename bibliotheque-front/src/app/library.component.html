@@ -1,0 +1,226 @@
+<div class="library">
+  <!-- Toast Notifications -->
+  <div class="toast-container">
+    <div class="toast toast-error" *ngIf="errorMsg">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M10 0a10 10 0 100 20 10 10 0 000-20zM9 5h2v6H9V5zm0 8h2v2H9v-2z"/>
+      </svg>
+      <span>{{ errorMsg }}</span>
+      <button class="toast-close" (click)="closeError()" type="button">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="toast toast-success" *ngIf="successMsg">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M10 0a10 10 0 100 20 10 10 0 000-20zm4.97 7.54l-5.63 5.62a.94.94 0 01-1.33 0l-2.5-2.5a.94.94 0 111.33-1.33l1.84 1.84 4.96-4.96a.94.94 0 111.33 1.33z"/>
+      </svg>
+      <span>{{ successMsg }}</span>
+      <button class="toast-close" (click)="closeSuccess()" type="button">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <div class="logo-section">
+          <span class="logo-icon">📚</span>
+          <div class="logo-text">
+            <h1 class="brand-title">Bibliothèque</h1>
+            <span class="brand-subtitle">Gestion de livres</span>
+          </div>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="stat-pill">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 3h12v10H2V3z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span>{{ books.length }} {{ books.length === 1 ? 'livre' : 'livres' }}</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Actions rapides</div>
+        <div class="sidebar-item active">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M3 3h12v12H3V3z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M6 6h6M6 9h6M6 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span>Tous les livres</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="page-header">
+        <div class="page-header-content">
+          <h2 class="page-title">Ajouter un nouveau livre</h2>
+          <p class="page-description">Ajoutez un livre à votre collection personnelle</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <form (ngSubmit)="addBook()" class="form-modern">
+          <div class="form-row">
+            <div class="input-wrapper">
+              <label class="input-label">Titre du livre</label>
+              <div class="input-with-icon">
+                <svg class="input-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <path d="M3 3h12v12H3V3z" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M6 6h6M6 9h6M6 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <input
+                  name="title"
+                  [(ngModel)]="newTitle"
+                  placeholder="Entrez le titre..."
+                  class="modern-input"
+                  [disabled]="isSubmitting"
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn-modern btn-primary" [disabled]="isSubmitting">
+              <svg *ngIf="!isSubmitting" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span *ngIf="!isSubmitting">Ajouter le livre</span>
+              <span *ngIf="isSubmitting">Ajout en cours...</span>
+            </button>
+          </div>
+
+          <div class="message-container">
+            <div class="message message-error" *ngIf="errorMsg">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM7 4h2v5H7V4zm0 6h2v2H7v-2z"/>
+              </svg>
+              <span>{{ errorMsg }}</span>
+              <button class="message-close" (click)="closeError()" type="button">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M11 3L3 11M3 3l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+            <div class="message message-success" *ngIf="successMsg">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0a8 8 0 100 16A8 8 0 008 0zm3.97 6.03l-4.5 4.5a.75.75 0 01-1.06 0l-2-2a.75.75 0 111.06-1.06l1.47 1.47 3.97-3.97a.75.75 0 111.06 1.06z"/>
+              </svg>
+              <span>{{ successMsg }}</span>
+              <button class="message-close" (click)="closeSuccess()" type="button">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M11 3L3 11M3 3l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="page-header" style="margin-top: 2.5rem;">
+        <div class="page-header-content">
+          <h2 class="page-title">Ma collection</h2>
+          <p class="page-description">Parcourez et gérez vos livres</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div *ngIf="isLoading" class="loading-modern">
+          <div class="loader"></div>
+          <p>Chargement de votre bibliothèque...</p>
+        </div>
+
+        <div class="books-list" *ngIf="!isLoading && books.length > 0">
+          <div class="book-item" *ngFor="let book of books" [class.editing-mode]="editingId === book.id">
+            <div class="book-left">
+              <div class="book-avatar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 5h16v14H4V5z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M7 9h10M7 13h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="book-info">
+                <div class="book-meta">ID: {{ book.id }}</div>
+                <div class="book-title-display" *ngIf="editingId !== book.id">
+                  {{ book.title }}
+                </div>
+                <input 
+                  *ngIf="editingId === book.id"
+                  [(ngModel)]="editTitle"
+                  class="book-edit-input"
+                  [disabled]="isSubmitting"
+                  placeholder="Nouveau titre..."
+                />
+              </div>
+            </div>
+            <div class="book-actions">
+              <ng-container *ngIf="editingId !== book.id">
+                <button 
+                  class="action-btn action-edit" 
+                  (click)="startEdit(book)" 
+                  [disabled]="isSubmitting">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M11.5 2.5l2 2-7 7H4.5v-2l7-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Modifier</span>
+                </button>
+                <button 
+                  class="action-btn action-delete" 
+                  (click)="delete(book)" 
+                  [disabled]="isSubmitting">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 4h10M6 4V3h4v1M5 4v9h6V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Supprimer</span>
+                </button>
+              </ng-container>
+              
+              <ng-container *ngIf="editingId === book.id">
+                <button 
+                  class="action-btn action-save" 
+                  (click)="saveEdit()" 
+                  [disabled]="isSubmitting">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M13 4L6 11l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Enregistrer</span>
+                </button>
+                <button 
+                  class="action-btn action-cancel" 
+                  (click)="cancelEdit()" 
+                  [disabled]="isSubmitting">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  <span>Annuler</span>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!isLoading && books.length === 0" class="empty-modern">
+          <div class="empty-illustration">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+              <rect x="30" y="20" width="60" height="80" rx="4" stroke="#e0e0e0" stroke-width="3"/>
+              <line x1="40" y1="35" x2="80" y2="35" stroke="#e0e0e0" stroke-width="3" stroke-linecap="round"/>
+              <line x1="40" y1="50" x2="75" y2="50" stroke="#e0e0e0" stroke-width="3" stroke-linecap="round"/>
+              <line x1="40" y1="65" x2="70" y2="65" stroke="#e0e0e0" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Aucun livre dans votre bibliothèque</h3>
+          <p>Commencez par ajouter votre premier livre pour construire votre collection</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

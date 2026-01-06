@@ -1,0 +1,277 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Subtle Background Pattern */
+.animated-background {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(to right, #f5f5f5 1px, transparent 1px),
+    linear-gradient(to bottom, #f5f5f5 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.5;
+}
+
+.gradient-orb {
+  display: none;
+}
+
+/* Minimal Stars */
+.stars {
+  display: none;
+}
+
+/* Hero Content */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 800px;
+  padding: 3rem 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Logo */
+.logo-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  font-size: 5rem;
+  animation: gentleFloat 3s ease-in-out infinite;
+}
+
+.logo-glow {
+  display: none;
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Title */
+.hero-title {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #303030;
+  letter-spacing: -0.5px;
+}
+
+.gradient-text {
+  color: #303030;
+}
+
+/* Subtitle */
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: #6e6e6e;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.highlight {
+  color: #1f75cb;
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
+}
+
+.highlight::after {
+  display: none;
+}
+
+/* CTA Button */
+.cta-button {
+  position: relative;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  background: #1f75cb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(31, 117, 203, 0.15);
+}
+
+.button-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.button-icon {
+  transition: transform 0.2s ease;
+}
+
+.button-glow {
+  display: none;
+}
+
+.cta-button:hover {
+  background: #1068bf;
+  box-shadow: 0 2px 6px rgba(31, 117, 203, 0.25);
+  transform: translateY(-1px);
+}
+
+.cta-button:hover .button-icon {
+  transform: translateX(3px);
+}
+
+.cta-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(31, 117, 203, 0.2);
+}
+
+/* Features */
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e8e8e8;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6e6e6e;
+  transition: all 0.2s ease;
+}
+
+.feature:hover {
+  color: #303030;
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.feature span {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Floating Books */
+.floating-books {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+.floating-book {
+  position: absolute;
+  animation: subtleFloat 15s ease-in-out infinite;
+}
+
+.book-3d {
+  font-size: 2.5rem;
+  animation: none;
+}
+
+.book-1 {
+  top: 15%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.book-2 {
+  top: 25%;
+  right: 12%;
+  animation-delay: 3s;
+}
+
+.book-3 {
+  bottom: 20%;
+  left: 15%;
+  animation-delay: 6s;
+}
+
+.book-4 {
+  bottom: 30%;
+  right: 18%;
+  animation-delay: 9s;
+}
+
+.book-5 {
+  top: 60%;
+  left: 8%;
+  animation-delay: 12s;
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(15px, -15px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-content {
+    margin: 1rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .logo {
+    font-size: 4rem;
+  }
+
+  .cta-button {
+    width: 100%;
+    padding: 1rem 2rem;
+  }
+
+  .features {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .floating-book {
+    opacity: 0.05;
+  }
+}
